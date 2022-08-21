@@ -1,11 +1,18 @@
-# showme-your-recipe
+# do-not-procrastinate
 
 ## Objective
-> Create a web page where the user can search for recipes.
+> Create a game which inlfuence people to implement positive habits with consistency and become more disciplined.
 
-## Some ideas
-- Show recipes not just when typing for its name but also when searching for ingredients.
-- Show the recipe and a picture from it.
+### Minimum
 
-## If we have some time left
-- Recommend a drink with the recipe using another API.
+- register page
+- login page
+- goal definition → on boarding
+- rule control
+- add activities
+- basic dashboard
+
+### Stack
+
+- Front: CSS + HTML
+- Back: python + flask + SQL
