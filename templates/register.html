@@ -1,13 +1,104 @@
-{% extends "layout.html" %}
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8" />
 
-{% block body %}
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 
-    <form action="/register" method="post">
-        <input autocomplete="off" autofocus name="name" placeholder="Name" type="text">
-        <input autocomplete="off" autofocus name="username" placeholder="Username" type="text">
-        <input autocomplete="off" autofocus name="password" placeholder="Password" type="text">
-        <input autocomplete="off" autofocus name="confpassword" placeholder="Confirm Password" type="text">
-        <input type="submit">
-    </form>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-{% endblock %}
+		<!-- Bootstrap -->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi"
+			crossorigin="anonymous"
+		/>
+
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
+			crossorigin="anonymous"
+		></script>
+
+		<!-- CSS file -->
+		<link href="app.css" rel="stylesheet" />
+
+		<title>Register</title>
+	</head>
+
+	<body>
+		<div id="main-container">
+			<div id="main-component">
+				<img
+					id="logo"
+					alt="do-not-procrastinate-logo"
+					src="do-not-procrastinate-logo.png"
+				/>
+
+				<div class="center">
+					<h2>welcome</h2>
+
+					<p class="text margin">register now and start to measure your habits</p>
+				</div>
+
+				<div class="form-data">
+					<form action="/register" method="post" class="center">
+						<div class="form-group input-component">
+							<label>NAME</label>
+							<input
+								class="form-control"
+								autocomplete="off"
+								autofocus
+								name="name"
+								placeholder="Name"
+								type="text"
+								required
+							/>
+						</div>
+
+						<div class="form-group input-component">
+							<label>USERNAME</label>
+							<input
+								class="form-control"
+								autocomplete="off"
+								name="username"
+								placeholder="Username"
+								type="text"
+								required
+							/>
+						</div>
+
+						<div class="form-group input-component">
+							<label>PASSWORD</label>
+							<input
+								class="form-control"
+								autocomplete="off"
+								name="password"
+								placeholder="Password"
+								type="text"
+								required
+							/>
+						</div>
+						<div class="form-group input-component">
+							<label>CONFIRM PASSWORD</label>
+							<input
+								class="form-control"
+								autocomplete="off"
+								name="confpassword"
+								placeholder="Confirm password"
+								type="text"
+								required
+							/>
+						</div>
+						<input type="submit" class="btn center" value="REGISTER" />
+					</form>
+				</div>
+				<div class="center footer">
+					<p>already have an account?</p>
+					<a href="/templates/login.html">sign in</a>
+				</div>
+			</div>
+		</div>
+	</body>
+</html>
