@@ -24,4 +24,4 @@ class User(UserMixin, db.Model):
 
 @login.user_loader
 def load_user(id):
-    return db.session.execute(db.select(User).get(int(id)))
+    return User.query.get(int(id))

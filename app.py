@@ -46,9 +46,7 @@ def login():
 
     # Verify if the user is already registered
     # Query for the user in the database
-    user = db.session.execute(
-            db.select(User).filter_by(username=userdata["username"])
-    ).one_or_none()
+    user = User.query.filter_by(username=userdata["username"]).one_or_none()
 
     # If the query returns an user and the password matches, go home
     if user is not None and user.check_password(userdata["password"]):
@@ -83,9 +81,7 @@ def check_register():
     }
 
     # Verify if the user is already registered
-    user = db.session.execute(
-            db.select(User).filter_by(username=userdata["username"])
-    ).one_or_none()
+    user = User.query.filter_by(username=userdata["username"]).one_or_none()
 
     msg = None
     # If returns something, give an error that the user is already registered
@@ -115,8 +111,8 @@ def home():
     """Handle the home page of the app"""
     # Get data for that user
     userdata = {
-            "name": current_user.name,
-            "username": current_user.username
+        "name": current_user.name,
+        "username": current_user.username
     }
 
     return render_template("home.html", userdata=userdata)
