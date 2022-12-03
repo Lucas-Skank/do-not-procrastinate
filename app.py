@@ -2,7 +2,7 @@
 
 from flask import Flask, redirect, render_template, request
 from flask_login import login_required, current_user, login_user, logout_user
-from models import User, db, login
+from models import User, Tasks, Rules, db, login
 
 
 app = Flask(__name__)
@@ -23,6 +23,9 @@ def create_table():
 @app.route("/")
 def root():
     """Render login page to the user."""
+    # If the current user is already authenticathed, redirect to the home page
+    if current_user.is_authenticated:
+        return redirect('/home')
 
     return render_template("login.html")
 
@@ -34,10 +37,6 @@ def login():
     If the user is already registered, it should redirect to the home page.
     If the user is not registered, redirect the user to the register page.
     """
-    # If the current user is already authenticathed, redirect to the home page
-    if current_user.is_authenticated:
-        return redirect('/home')
-
     # Get the data passed by the user
     userdata = {
         "username": request.form.get("username"),
@@ -97,7 +96,8 @@ def check_register():
     user.set_password(userdata["password"])
     db.session.add(user)
     db.session.commit()
-    return redirect("/login")
+
+    return redirect("/")
 
 
 @app.route("/logout")
@@ -109,10 +109,14 @@ def logout():
 @app.route("/home")
 def home():
     """Handle the home page of the app"""
+
     # Get data for that user
     userdata = {
+        "id": current_user.id,
         "name": current_user.name,
         "username": current_user.username
     }
+
+    # Get user tasks and rule
 
     return render_template("home.html", userdata=userdata)

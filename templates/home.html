@@ -2,7 +2,11 @@
 
 {% block body %}
 
-        THIS IS THE HOME
+        <p>THIS IS THE HOME</p>
+
         <p>hello, {{ userdata["name"] }}</p>
+        <p>your id is: {{ userdata["id"] }}</p>
+
+        <a href="/logout">Logout Here</a>
 
 {% endblock %}
