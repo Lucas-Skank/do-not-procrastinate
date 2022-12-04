@@ -1,9 +1,80 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block body %}
+<div id="main-container">
+	<div id="main-component">
+		<img
+			id="logo"
+			alt="do-not-procrastinate-logo"
+			src="/static/do-not-procrastinate-logo.png"
+		/>
 
-{% block body %}
+		<div class="center">
+			<h2>welcome</h2>
 
-    {{ msg }}
+			<p class="text margin">register now and start to measure your habits</p>
+		</div>
 
-    <meta http-equiv="refresh" content="3; url=/" />
+		<div class="form-data">
+			<form action="/register" method="post" class="center">
+				<div class="form-group input-component">
+					<label>NAME</label>
+					<input
+						class="form-control"
+						autocomplete="off"
+						autofocus
+						name="name"
+						placeholder="Name"
+						type="text"
+						required
+					/>
+				</div>
+
+				<div class="form-group input-component">
+					<label>USERNAME</label>
+					<input
+						class="form-control"
+						autocomplete="off"
+						name="username"
+						placeholder="Username"
+						type="text"
+						required
+					/>
+				</div>
+
+				<div class="form-group input-component">
+					<label>PASSWORD</label>
+					<input
+						class="form-control"
+						type="password"
+						autocomplete="off"
+						name="password"
+						placeholder="Password"
+						type="text"
+						required
+					/>
+				</div>
+				<div class="form-group input-component">
+					<label>CONFIRM PASSWORD</label>
+					<input
+						class="form-control"
+						type="password"
+						autocomplete="off"
+						name="confpassword"
+						placeholder="Confirm password"
+						type="text"
+						required
+					/>
+				</div>
+				<input type="submit" class="btn center" value="REGISTER" />
+			</form>
+		</div>
+
+		<div class="center error">error while registering user already taken or wrong password</div>
+
+		<div class="center footer">
+			<p>already have an account?</p>
+			<a href="/login">sign in</a>
+		</div>
+	</div>
+</div>
 
 {% endblock %}
