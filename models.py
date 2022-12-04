@@ -49,7 +49,7 @@ class Rules(db.Model):
 
     id = db.Column(db.Integer, primary_key=True)
     user_id = db.Column(db.ForeignKey("users.id"))
-    task = db.Column(db.String())
+    rule = db.Column(db.String())
     point = db.Column(db.Integer)
     pn = db.Column(db.Boolean)
 

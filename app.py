@@ -131,14 +131,13 @@ def home():
 def goal():
     """Handle goal page, its definition and update"""
 
-    # If get method used, render update goal page
+    # If GET method used, render update goal page
     if request.method == "GET":
         return render_template("goal.html")
 
     # In case of POST, update the goal value of the user
     # and redirect to home
     new_goal = request.form.get("goal")
-    print(f"The new goal is: {new_goal}")
 
     User.query.filter(User.id == current_user.id).update(
         {"goal": new_goal}, synchronize_session=False
@@ -146,3 +145,49 @@ def goal():
     db.session.commit()
 
     return redirect("/home")
+
+
+@app.route("/rule", methods=["GET", "POST"])
+def rule():
+    """TODO"""
+    # If GET method used, render rule page
+    if request.method == "GET":
+        user_rules = Rules.query.filter_by(user_id=current_user.id).all()
+
+        return render_template("rule.html", user_rules=user_rules)
+
+    # In case of POST
+    # Create new Rule object with coming data
+    new_rule_data = {
+        "rule_name": request.form.get("rule_name"),
+        "point": request.form.get("point"),
+        "pn": request.form.get("pn"),
+    }
+
+    # Checks if the user input makes sense
+    user_input_values = new_rule_data.values()
+    if None in user_input_values or "" in user_input_values:
+        print("WRONG RULE INTPUT")
+        return redirect("/rule")
+
+    # Make pn true or false for db
+    new_rule_data["pn"] = True if new_rule_data["pn"] == "Positive" else False
+    # Crete rule object to add to the database
+    new_rule = Rules(
+        user_id=current_user.id,
+        rule=new_rule_data["rule_name"],
+        point=new_rule_data["point"],
+        pn=new_rule_data["pn"]
+    )
+
+    # Add object to session and commit
+    db.session.add(new_rule)
+    db.session.commit()
+
+    return redirect("/rule")
+
+
+@app.route("/task", methods=["GET", "POST"])
+def task():
+    """TODO"""
+    redirect("/home")

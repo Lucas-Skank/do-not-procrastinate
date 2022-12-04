@@ -4,9 +4,9 @@
 
         <h1>THIS IS THE HOME</h1>
 
-        <p>hello, {{ userdata["name"] }}</p>
+        <p>Hello, {{ userdata["name"] }}</p>
 
-        <p>GOAL: {{ userdata["goal"] }}</p>
+        <p>Your GOAL: {{ userdata["goal"] }}</p>
         <a href="/goal">Update your goal</a>
 
         <h2>Tasks you have done:</h2>
@@ -33,6 +33,10 @@
                 </tbody>
         </table>
 
-        <a href="/logout">Logout Here</a>
+        <a href="/task">Add a new task</a>
+
+        <a href="/rule">Manage your rules</a>
+
+        <a href="/logout">Logout</a>
 
 {% endblock %}
