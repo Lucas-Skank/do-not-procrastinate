@@ -114,9 +114,13 @@ def home():
     userdata = {
         "id": current_user.id,
         "name": current_user.name,
-        "username": current_user.username
+        "username": current_user.username,
+        "goal": current_user.goal
     }
 
-    # Get user tasks and rule
+    # Get user tasks
+    userdata["tasks"] = dict(
+        Tasks.query.filter_by(user_id=current_user.id).all()
+    )
 
     return render_template("home.html", userdata=userdata)

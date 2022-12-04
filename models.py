@@ -38,7 +38,8 @@ class Tasks(db.Model):
     user_id = db.Column(db.ForeignKey("users.id"))
     task = db.Column(db.String())
     point = db.Column(db.Integer)
-    comments = db.Column(db.String())
+    comment = db.Column(db.String())
+    pn = db.Column(db.Boolean)
 
     users = db.relationship("User", back_populates="tasks")
 
