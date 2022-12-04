@@ -120,9 +120,7 @@ def home():
     }
 
     # Get user tasks
-    userdata["tasks"] = dict(
-        Tasks.query.filter_by(user_id=current_user.id).all()
-    )
+    userdata["tasks"] = Tasks.query.filter_by(user_id=current_user.id).all()
 
     return render_template("home.html", userdata=userdata)
 
@@ -157,7 +155,7 @@ def rule():
         return render_template("rule.html", user_rules=user_rules)
 
     # In case of POST
-    # Create new Rule object with coming data
+    # Get the user input
     new_rule_data = {
         "rule_name": request.form.get("rule_name"),
         "point": request.form.get("point"),
@@ -190,4 +188,33 @@ def rule():
 @app.route("/task", methods=["GET", "POST"])
 def task():
     """TODO"""
-    redirect("/home")
+    # If GET method used, render task page
+    if request.method == "GET":
+        user_rules = Rules.query.filter_by(user_id=current_user.id).all()
+        return render_template("task.html", user_rules=user_rules)
+
+    # In case of POST
+    # Get the user input
+    task_id = request.form.get("new_task")
+    new_task_comment = request.form.get("comment")
+
+    # Get proper object from db because front is sending string
+    # TODO -> can be fixed if front send it as object
+    new_task_obj = Rules.query.filter_by(
+        id=task_id,
+        user_id=current_user.id
+    ).one_or_none()
+
+    new_task = Tasks(
+        user_id=current_user.id,
+        task=new_task_obj.rule,
+        point=new_task_obj.point,
+        pn=new_task_obj.pn,
+        comment=new_task_comment
+    )
+
+    # Add object to session and commit
+    db.session.add(new_task)
+    db.session.commit()
+
+    return redirect("/home")

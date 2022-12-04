@@ -1,0 +1,19 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+        <h1>Add your new task</h1>
+
+        <form action="/task" method="post">
+        <select name="new_task" required>
+                {% for rule_row in user_rules %}
+                        <option value={{ rule_row["id"] }}>{{ rule_row["rule"] }}</option>
+                {% endfor %}
+        </select>
+        <input name="comment" placeholder="Comment" type="text">
+        <input type="submit">
+        </form>
+
+    <a href="/home">Home</a>
+
+{% endblock %}
