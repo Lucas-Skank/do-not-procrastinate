@@ -102,6 +102,7 @@ def check_register():
 
 @app.route("/logout")
 def logout():
+    """Handle user logout"""
     logout_user()
     return redirect("/")
 
@@ -124,3 +125,24 @@ def home():
     )
 
     return render_template("home.html", userdata=userdata)
+
+
+@app.route("/goal", methods=["GET", "POST"])
+def goal():
+    """Handle goal page, its definition and update"""
+
+    # If get method used, render update goal page
+    if request.method == "GET":
+        return render_template("goal.html")
+
+    # In case of POST, update the goal value of the user
+    # and redirect to home
+    new_goal = request.form.get("goal")
+    print(f"The new goal is: {new_goal}")
+
+    User.query.filter(User.id == current_user.id).update(
+        {"goal": new_goal}, synchronize_session=False
+    )
+    db.session.commit()
+
+    return redirect("/home")
