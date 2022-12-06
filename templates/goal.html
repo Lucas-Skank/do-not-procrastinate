@@ -1,0 +1,10 @@
+{% extends "layout.html" %}
+
+{% block body %}
+
+    <form action="/goal" method="post">
+        <input autocomplete="off" autofocus name="goal" placeholder="New Goal" type="text">
+        <input type="submit">
+    </form>
+
+{% endblock %}

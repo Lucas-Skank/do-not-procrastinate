@@ -2,7 +2,41 @@
 
 {% block body %}
 
-        THIS IS THE HOME
-        <p>hello, {{ userdata["name"] }}</p>
+        <h1>THIS IS THE HOME</h1>
+
+        <p>Hello, {{ userdata["name"] }}</p>
+
+        <p>Your GOAL: {{ userdata["goal"] }}</p>
+        <a href="/goal">Update your goal</a>
+
+        <h2>Tasks you have done:</h2>
+        <table> 
+                <thead>
+                        <tr>
+                                <th>Task</th>
+                                <th>Point</th>
+                                <th>P | N</th>
+                                <th>Comment</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        {% for task_row in userdata["tasks"] %}
+                                <tr>
+                                        <td>
+                                                {{ task_row["task"] }}
+                                                {{ task_row["point"] }}
+                                                {{ task_row["pn"] }}
+                                                {{ task_row["comment"] }}
+                                        </td>
+                                </tr>
+                        {% endfor %}
+                </tbody>
+        </table>
+
+        <a href="/task">Add a new task</a>
+
+        <a href="/rule">Manage your rules</a>
+
+        <a href="/logout">Logout</a>
 
 {% endblock %}
