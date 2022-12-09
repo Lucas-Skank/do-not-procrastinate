@@ -158,7 +158,7 @@ def rule():
     # Get the user input
     new_rule_data = {
         "rule_name": request.form.get("rule_name"),
-        "point": request.form.get("point"),
+        "point": int(request.form.get("point")),
         "pn": request.form.get("pn"),
     }
 
@@ -174,7 +174,10 @@ def rule():
     new_rule = Rules(
         user_id=current_user.id,
         rule=new_rule_data["rule_name"],
-        point=new_rule_data["point"],
+        point=(
+            - abs(new_rule_data["point"]) if not new_rule_data["pn"]
+            else new_rule_data["point"]
+        ),
         pn=new_rule_data["pn"]
     )
 
