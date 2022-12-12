@@ -3,6 +3,7 @@
 from flask import Flask, redirect, render_template, request
 from flask_login import login_required, current_user, login_user, logout_user
 from models import User, Tasks, Rules, db, login
+from utils import sum_points, filter_positive, filter_negative
 
 
 app = Flask(__name__)
@@ -121,6 +122,24 @@ def home():
 
     # Get user tasks
     userdata["tasks"] = Tasks.query.filter_by(user_id=current_user.id).all()
+
+    # Get positive points
+    positive_tasks = filter_positive(userdata["tasks"])
+
+    # Sum positive points
+    userdata["positive_points"] = sum_points(positive_tasks)
+
+    # Get negative points
+    negative_tasks = filter_negative(userdata["tasks"])
+
+    for t in negative_tasks:
+        print(t)
+
+    # Sum negative points
+    userdata["negative_points"] = sum_points(negative_tasks)
+
+    # Sum all user points
+    userdata["total_points"] = sum_points(userdata["tasks"])
 
     return render_template("home.html", userdata=userdata)
 

@@ -9,6 +9,25 @@
         <p>Your GOAL: {{ userdata["goal"] }}</p>
         <a href="/goal">Update your goal</a>
 
+        <h2>Score overview</h2>
+        <table> 
+                <thead>
+                        <tr>
+                                <th>Total points</th>
+                                <th>Total positive points</th>
+                                <th>Total negative points</th>
+                        </tr>
+                </thead>
+                <tbody>
+                        <tr>
+                                <td>{{ userdata["total_points"] }}</td>
+                                <td>{{ userdata["positive_points"] }}</td>
+                                <td>{{ userdata["negative_points"] }}</td>
+                        </tr>
+                </tbody>
+        </table>
+
+
         <h2>Tasks you have done:</h2>
         <table> 
                 <thead>
@@ -22,12 +41,11 @@
                 <tbody>
                         {% for task_row in userdata["tasks"] %}
                                 <tr>
-                                        <td>
-                                                {{ task_row["task"] }}
-                                                {{ task_row["point"] }}
-                                                {{ task_row["pn"] }}
-                                                {{ task_row["comment"] }}
-                                        </td>
+                                        <td>{{ task_row["task"] }}</td>
+                                        <td>{{ task_row["point"] }}</td>
+                                        <td>{{ task_row["pn"] }}</td>
+                                        <td>{{ task_row["comment"] }}</td>
+                                        
                                 </tr>
                         {% endfor %}
                 </tbody>
