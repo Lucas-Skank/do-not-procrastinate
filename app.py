@@ -117,8 +117,10 @@ def home():
         "id": current_user.id,
         "name": current_user.name,
         "username": current_user.username,
-        "goal": current_user.goal
+        "goal": current_user.goal,
     }
+
+    userdata["user_rules"] = Rules.query.filter_by(user_id=current_user.id).all()
 
     # Get user tasks
     userdata["tasks"] = Tasks.query.filter_by(user_id=current_user.id).all()
@@ -237,3 +239,5 @@ def task():
     db.session.commit()
 
     return redirect("/home")
+
+
