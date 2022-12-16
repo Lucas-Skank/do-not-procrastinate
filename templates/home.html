@@ -56,13 +56,14 @@
 				<th scope="col">Point</th>
 				<th scope="col">P | N</th>
 				<th scope="col">Comment</th>
+				<th scope="col"></th>
 			</thead>
 
 			<tbody>
 				{% for task_row in userdata["tasks"] %}
 
 				<tr>
-					<td scope="col">{{ task_row["id"] }}</td>
+					<td scope="row">{{ task_row["id"] }}</td>
 					<td>{{ task_row["task"] }}</td>
 					<td>{{ task_row["point"] }}</td>
 					<td>{{ task_row["pn"] }}</td>
@@ -70,7 +71,16 @@
 					<td>
 						<form action="/delete" method="post">
 							<input name="task_id" value="{{ task_row['id'] }}" hidden>
-							<input type="submit" >
+							<button type="submit" 
+								style="background: none;
+								color: inherit;
+								border: none;
+								padding: 0;
+								font: inherit;
+								cursor: pointer;
+								outline: inherit;" >
+								<img src="/static/trash-icon.png" style="width: 20px; height: 20px;">
+							</button>
 						</form>
 					</td>
 				</tr>
