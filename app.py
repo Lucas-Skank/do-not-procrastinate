@@ -132,9 +132,6 @@ def home():
     # Get negative points
     negative_tasks = filter_negative(userdata["tasks"])
 
-    for t in negative_tasks:
-        print(t)
-
     # Sum negative points
     userdata["negative_points"] = sum_points(negative_tasks)
 
