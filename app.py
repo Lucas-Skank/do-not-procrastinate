@@ -120,7 +120,8 @@ def home():
         "goal": current_user.goal,
     }
 
-    userdata["user_rules"] = Rules.query.filter_by(user_id=current_user.id).all()
+    userdata["user_rules"] = Rules.query.filter_by(
+        user_id=current_user.id).all()
 
     # Get user tasks
     userdata["tasks"] = Tasks.query.filter_by(user_id=current_user.id).all()
@@ -241,3 +242,22 @@ def task():
     return redirect("/home")
 
 
+@app.route("/delete", methods=["POST"])
+def delete():
+    """TODO"""
+
+    # Get input from the user
+    task_id = request.form.get("task_id")
+    rule_id = request.form.get("rule_id")
+
+    # Get object to be deleted from the database
+    if task_id is not None:
+        obj = Tasks.query.filter_by(id=task_id).one_or_none()
+    elif rule_id is not None:
+        obj = Rules.query.filter_by(id=rule_id).one_or_none()
+
+    # Delete object and commit to database
+    db.session.delete(obj)
+    db.session.commit()
+
+    return redirect("/home")
