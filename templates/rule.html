@@ -26,6 +26,7 @@
 				<th scope="col">Rule Name</th>
 				<th scope="col">Point</th>
 				<th scope="col">P | N</th>
+				<th scope="col"></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -34,6 +35,25 @@
 				<td>{{ rule_row["rule"] }}</td>
 				<td>{{ rule_row["point"] }}</td>
 				<td>{{ rule_row["pn"] }}</td>
+				<td>
+					<form action="/delete" method="post">
+						<input name="rule_id" value="{{ rule_row['id'] }}" hidden />
+						<button
+							type="submit"
+							style="
+								background: none;
+								color: inherit;
+								border: none;
+								padding: 0;
+								font: inherit;
+								cursor: pointer;
+								outline: inherit;
+							"
+						>
+							<img src="/static/trash-icon.png" style="width: 20px; height: 20px" />
+						</button>
+					</form>
+				</td>
 			</tr>
 			{% endfor %}
 		</tbody>
