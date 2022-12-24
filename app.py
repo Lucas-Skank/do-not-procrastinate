@@ -31,12 +31,12 @@ def root():
     return render_template("login.html")
 
 
-@app.route("/login", methods=["GET", "POST"])
+@app.route("/login", methods=["POST"])
 def login():
     """Log in the user.
 
-    If the user is already registered, it should redirect to the home page.
-    If the user is not registered, redirect the user to the register page.
+    If the user is already registered, redirect him to the home page.
+    If the user is not registered, redirect him to the register page.
     """
     # Get the data passed by the user
     userdata = {
@@ -44,30 +44,27 @@ def login():
         "password": request.form.get("password")
     }
 
-    # Verify if the user is already registered
     # Query for the user in the database
     user = User.query.filter_by(username=userdata["username"]).one_or_none()
 
-    # If the query returns an user and the password matches, go home
+    # If the query returns an user and the password matches, redirect to home
     if user is not None and user.check_password(userdata["password"]):
         login_user(user)
         return redirect("/home")
 
-    # If the user is not registered yet, load an error message
-    msg = "User is not registered or credentials are wrong!"
-    # The next page will redirect to `/` after 3 seconds
-    return render_template("login_failed.html", msg=msg)
+    return render_template("login_failed.html")
 
 
 @app.route("/register", methods=["GET", "POST"])
 def check_register():
-    """Check user entry and register him if his data is correct.
-    TODO -> better docstring
+    """Check user input from register page and save his data into the
+    database.
     """
     # If the current user is already authenticathed, redirect to the home page
     if current_user.is_authenticated:
         return redirect("/home")
 
+    # If GET method used, return register page
     if request.method == "GET":
         return render_template("register.html")
 
@@ -84,12 +81,13 @@ def check_register():
     user = User.query.filter_by(username=userdata["username"]).one_or_none()
 
     msg = None
-    # If returns something, give an error that the user is already registered
+    # If query returns something, give an error that the user is already
+    # registered
     if user is not None:
         msg = "User is already registered!"
         return render_template("register_failed.html", msg=msg)
 
-    # If returns nothing, save the user inside the database
+    # If query returns nothing, save the user inside the database
     user = User(
         username=userdata["username"],
         name=userdata["name"],
@@ -103,16 +101,17 @@ def check_register():
 
 @app.route("/logout")
 def logout():
-    """Handle user logout"""
+    """Logout the user."""
     logout_user()
     return redirect("/")
 
 
 @app.route("/home")
 def home():
-    """Handle the home page of the app"""
-
-    # Get data for that user
+    """Load all necessary data to be used in home page and redirect the user
+    to it.
+    """
+    # Get current user information
     userdata = {
         "id": current_user.id,
         "name": current_user.name,
@@ -146,7 +145,9 @@ def home():
 
 @app.route("/goal", methods=["GET", "POST"])
 def goal():
-    """Handle goal page, its definition and update"""
+    """Save user goal or update it.
+    TODO -> Verify why get is being used in front
+    """
 
     # If GET method used, render update goal page
     if request.method == "GET":
@@ -166,7 +167,7 @@ def goal():
 
 @app.route("/rule", methods=["GET", "POST"])
 def rule():
-    """TODO"""
+    """Get user rule input, check it and save it to the database."""
     # If GET method used, render rule page
     if request.method == "GET":
         user_rules = Rules.query.filter_by(user_id=current_user.id).all()
@@ -189,10 +190,12 @@ def rule():
 
     # Make pn true or false for db
     new_rule_data["pn"] = True if new_rule_data["pn"] == "Positive" else False
-    # Crete rule object to add to the database
+
+    # Create rule object to add to the database
     new_rule = Rules(
         user_id=current_user.id,
         rule=new_rule_data["rule_name"],
+        # Make the user input point a negative number
         point=(
             - abs(new_rule_data["point"]) if not new_rule_data["pn"]
             else new_rule_data["point"]
@@ -209,7 +212,7 @@ def rule():
 
 @app.route("/task", methods=["GET", "POST"])
 def task():
-    """TODO"""
+    """TODO -> check if get method is used"""
     # If GET method used, render task page
     if request.method == "GET":
         user_rules = Rules.query.filter_by(user_id=current_user.id).all()
