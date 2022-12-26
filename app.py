@@ -143,18 +143,10 @@ def home():
     return render_template("home.html", userdata=userdata)
 
 
-@app.route("/goal", methods=["GET", "POST"])
+@app.route("/goal", methods=["POST"])
 def goal():
-    """Save user goal or update it.
-    TODO -> Verify why get is being used in front
-    """
-
-    # If GET method used, render update goal page
-    if request.method == "GET":
-        return render_template("goal.html")
-
-    # In case of POST, update the goal value of the user
-    # and redirect to home
+    """Save user goal or update it."""
+    # Update the goal value of the user and redirect to home
     new_goal = request.form.get("goal")
 
     User.query.filter(User.id == current_user.id).update(
@@ -210,32 +202,26 @@ def rule():
     return redirect("/rule")
 
 
-@app.route("/task", methods=["GET", "POST"])
+@app.route("/task", methods=["POST"])
 def task():
-    """TODO -> check if get method is used"""
-    # If GET method used, render task page
-    if request.method == "GET":
-        user_rules = Rules.query.filter_by(user_id=current_user.id).all()
-        return render_template("task.html", user_rules=user_rules)
-
-    # In case of POST
+    """Add new task into the database for the current user and redirect to
+    home page."""
     # Get the user input
     task_id = request.form.get("new_task")
-    new_task_comment = request.form.get("comment")
+    task_comment = request.form.get("comment")
 
-    # Get proper object from db because front is sending string
-    # TODO -> can be fixed if front send it as object
-    new_task_obj = Rules.query.filter_by(
+    # Get rule object to save it as task
+    rule_obj = Rules.query.filter_by(
         id=task_id,
         user_id=current_user.id
     ).one_or_none()
 
     new_task = Tasks(
         user_id=current_user.id,
-        task=new_task_obj.rule,
-        point=new_task_obj.point,
-        pn=new_task_obj.pn,
-        comment=new_task_comment
+        task=rule_obj.rule,
+        point=rule_obj.point,
+        pn=rule_obj.pn,
+        comment=task_comment
     )
 
     # Add object to session and commit
@@ -247,8 +233,7 @@ def task():
 
 @app.route("/delete", methods=["POST"])
 def delete():
-    """TODO"""
-
+    """Delete a task or a rule from the database and redirect to home."""
     # Get input from the user
     task_id = request.form.get("task_id")
     rule_id = request.form.get("rule_id")
