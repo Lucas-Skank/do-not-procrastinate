@@ -144,6 +144,7 @@ The following examples are for Linux machines. However, the commands are similar
 From this application there are several ideas of improvement, more features and better user experience.
 Some of them are:
 
+- Add timestamps for the tasks
 - Add the possibility to show other user tasks and points for comparison and competition
 - Add graphs displaying the points over time
 
