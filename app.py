@@ -31,13 +31,21 @@ def root():
     return render_template("login.html")
 
 
-@app.route("/login", methods=["POST"])
+@app.route("/login", methods=["GET", "POST"])
 def login():
     """Log in the user.
 
     If the user is already registered, redirect him to the home page.
     If the user is not registered, redirect him to the register page.
     """
+    if request.method == "GET":
+        # If the current user is already authenticathed, redirect to the
+        # home page
+        if current_user.is_authenticated:
+            return redirect('/home')
+
+        return render_template("login.html")
+
     # Get the data passed by the user
     userdata = {
         "username": request.form.get("username"),
@@ -107,6 +115,7 @@ def logout():
 
 
 @app.route("/home")
+@login_required
 def home():
     """Load all necessary data to be used in home page and redirect the user
     to it.
@@ -144,6 +153,7 @@ def home():
 
 
 @app.route("/goal", methods=["POST"])
+@login_required
 def goal():
     """Save user goal or update it."""
     # Update the goal value of the user and redirect to home
@@ -158,6 +168,7 @@ def goal():
 
 
 @app.route("/rule", methods=["GET", "POST"])
+@login_required
 def rule():
     """Get user rule input, check it and save it to the database."""
     # If GET method used, render rule page
@@ -203,6 +214,7 @@ def rule():
 
 
 @app.route("/task", methods=["POST"])
+@login_required
 def task():
     """Add new task into the database for the current user and redirect to
     home page."""
@@ -232,6 +244,7 @@ def task():
 
 
 @app.route("/delete", methods=["POST"])
+@login_required
 def delete():
     """Delete a task or a rule from the database and redirect to home."""
     # Get input from the user
