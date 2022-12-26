@@ -23,13 +23,14 @@ This project was born from this idea. The first version was deployed on papers a
 ### What do we want to achieve?
 
 The main idea of this application is to be the compelling scoreboard for the daily tasks of the user.
-Also, it gives a quick access of the user vision, an overview if he is heading to a positive outcome 
+Also, it gives a quick access of the user vision, an overview if he is heading to a positive outcome
 towards his goal or if the user is just procrastinating.
 
-The main focus of the application are: 
-- let the user define a main goal 
-- let the user define the rules that are derived from the main goal 
-- let the user to registry his actions, monitoring his progress
+The main focus of the application are:
+
+-   let the user define a main goal
+-   let the user define the rules that are derived from the main goal
+-   let the user to registry his actions, monitoring his progress
 
 ### How does the program work?
 
@@ -49,7 +50,7 @@ The main focus of the application are:
 
 ## Stack used
 
-### Frontend 
+### Frontend
 
 CSS + HTML + Javascript
 
@@ -61,21 +62,21 @@ Python + Flask + SQLAlchemy
 
 #### app.py
 
-- It is the main file of the application. Here, all the requests are handled
-and the proper html page will be rendered. Also, the database will be created once
-the app is started, using the `models.py` file.
+-   It is the main file of the application. Here, all the requests are handled
+    and the proper html page will be rendered. Also, the database will be created once
+    the app is started, using the `models.py` file.
 
 #### models.py
 
-- All models for the database are defined here. The database is composed by
-the tables: `User`, `Tasks` and `Rules`. `Rules` is used to store the set of
-rules in which the user will daily do to accomplish his goal. `Tasks` is used
-to store the user "rules" when they do them. The `User` table stores all
-relevant information for the user.
+-   All models for the database are defined here. The database is composed by
+    the tables: `User`, `Tasks` and `Rules`. `Rules` is used to store the set of
+    rules in which the user will daily do to accomplish his goal. `Tasks` is used
+    to store the user "rules" when they do them. The `User` table stores all
+    relevant information for the user.
 
 #### utils.py
 
-- This script contains only helper functions for the app.
+-   This script contains only helper functions for the app.
 
 #### /templates
 
@@ -144,7 +145,8 @@ The following examples are for Linux machines. However, the commands are similar
 From this application there are several ideas of improvement, more features and better user experience.
 Some of them are:
 
-- Add timestamps for the tasks
-- Add the possibility to show other user tasks and points for comparison and competition
-- Add graphs displaying the points over time
-
+-   Add timestamps for the tasks
+-   Add the possibility to show other user tasks and points for comparison and competition
+-   Add graphs displaying the points over time
+-   Add onboarding to new users, for better experience
+-   Host aplication in a home server
