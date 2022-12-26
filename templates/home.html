@@ -1,42 +1,242 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block body %}
 
-{% block body %}
+<div>
+	<div id="header" style="display: block; padding-bottom: 10px">
+		<img
+			alt="do-not-procrastinate-logo"
+			src="/static/logo-header.png"
+			style="width: 306px; padding-bottom: 50px"
+		/>
+		<div style="display: flex; flex-direction: column; align-items: flex-start; padding: 0px">
+			<h1 style="font-size: 22px">{{ userdata["name"] }} goal:</h1>
+			<h4 style="font-size: 28px">{{ userdata["goal"] }}</h4>
+		</div>
+	</div>
 
-        <h1>THIS IS THE HOME</h1>
+	<hr style="margin-bottom: 40px;"/>
 
-        <p>Hello, {{ userdata["name"] }}</p>
+	<div id="overview" style="margin-bottom: 40px">
 
-        <p>Your GOAL: {{ userdata["goal"] }}</p>
-        <a href="/goal">Update your goal</a>
+		<div id="score-btn">
+			<div class="score-overview">
+				<div class="item-overview">
+					<p>Total points</p>
+					<p>{{ userdata["total_points"] }}</p>
+				</div>
 
-        <h2>Tasks you have done:</h2>
-        <table> 
-                <thead>
-                        <tr>
-                                <th>Task</th>
-                                <th>Point</th>
-                                <th>P | N</th>
-                                <th>Comment</th>
-                        </tr>
-                </thead>
-                <tbody>
-                        {% for task_row in userdata["tasks"] %}
-                                <tr>
-                                        <td>
-                                                {{ task_row["task"] }}
-                                                {{ task_row["point"] }}
-                                                {{ task_row["pn"] }}
-                                                {{ task_row["comment"] }}
-                                        </td>
-                                </tr>
-                        {% endfor %}
-                </tbody>
-        </table>
+				<div class="item-overview">
+					<p>Total positive points</p>
+					<p>{{ userdata["positive_points"] }}</p>
+				</div>
 
-        <a href="/task">Add a new task</a>
+				<div class="item-overview">
+					<p>Total negative points</p>
+					<p>{{ userdata["negative_points"] }}</p>
+				</div>
+			</div>
 
-        <a href="/rule">Manage your rules</a>
+			<div class="actions-btns">
+				<a class="btn btn-primary action-btn" href="/rule" role="button">MANAGE RULES</a>
+				<button
+					type="button"
+					class="btn btn-primary action-btn"
+					data-bs-toggle="modal"
+					data-bs-target="#modalGoal"
+				>
+					MANAGE GOAL
+				</button>
+			</div>
+		</div>
+	</div>
 
-        <a href="/logout">Logout</a>
+
+	<div id="record-table">
+		<table class="table table-dark table-hover" style="--bs-table-bg: none">
+			<thead>
+				<th scope="col" style="width: 20px;"></th>
+				<th scope="col">Task</th>
+				<th scope="col">Point</th>
+				<th scope="col">Comment</th>
+				<th scope="col" style="width: 20px;"></th>
+			</thead>
+
+			<tbody>
+				{% for task_row in userdata["tasks"] %}
+
+				<tr>
+					<td scope="row"><span class="dot" id="{{ task_row['pn'] }}" ></span></td>
+					<td>{{ task_row["task"] }}</td>
+					<td>{{ task_row["point"] }}</td>
+					<td style="max-width: 400px;">{{ task_row["comment"] }}</td>
+					<td>
+						<form action="/delete" method="post">
+							<input name="task_id" value="{{ task_row['id'] }}" hidden>
+							<button type="submit" 
+								style="background: none;
+								color: inherit;
+								border: none;
+								padding: 0;
+								font: inherit;
+								cursor: pointer;
+								outline: inherit;" >
+								<img src="/static/trash-icon.png" style="width: 20px; height: 20px;">
+							</button>
+						</form>
+					</td>
+				</tr>
+
+				{% endfor %}
+			</tbody>
+		</table>
+	</div>
+</div>
+
+<div style="padding: 30px 0px;" class="div-float">
+	<button
+	type="button"
+	class="btn btn-primary action-btn float"
+	data-bs-toggle="modal"
+	data-bs-target="#modalTask"
+	style="width: 100%; height: 45px;"
+>
+	+ ADD TASK
+</button>
+</div>
+
+
+
+<div
+	class="modal fade"
+	id="modalGoal"
+	tabindex="-1"
+	aria-labelledby="modalGoal"
+	aria-hidden="true"
+	style="color: black"
+>
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalGoal">Manage your goal</h5>
+
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				<div class="modal-body">
+					<p><strong>Current goal:</strong> {{ userdata["goal"] }}</p>
+				</div>
+
+				<hr />
+
+				<div style="text-align: center;font-weight: 600;margin: 10px 0px;">Update goal</div>
+
+				<form action="/goal" method="post">
+					<textarea
+						autocomplete="off"
+						class="form-control"
+						required
+						placeholder="New Goal"
+						name="goal"
+						rows="4"
+						cols="50"
+					></textarea>
+					<div class="mb-3" style="display: flex">
+						<input type="submit" class="btn" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<div
+	class="modal fade"
+	id="modalTask"
+	tabindex="-1"
+	aria-labelledby="modalTask"
+	aria-hidden="true"
+	style="color: black"
+>
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalTask">Add your new task</h5>
+
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				
+				<form action="/task" method="post">
+					<div class="mb-3">
+						<label class="col-form-label">Rule:</label>
+						<select name="new_task" class="form-control" required>
+
+							<option disabled selected value="">Select rule</option>
+
+							{% for rule_row in userdata["user_rules"]  %}
+							<option value={{ rule_row["id"] }}>{{ rule_row["rule"] }}</option>
+							{% endfor %}
+
+						</select>
+					</div>
+					
+					<div class="mb-3">
+						<label class="col-form-label">Add a comment</label>
+						<textarea
+						autocomplete="off"
+						class="form-control"
+						placeholder="Comment"
+						name="comment"
+						rows="4"
+						cols="50"
+						></textarea>
+					</div>
+					
+
+					<div class="mb-3" style="display: flex">
+						<input type="submit" class="btn" />
+					</div>
+
+				</form>
+
+			</div>
+		</div>
+	</div>
+</div>
+
+
+<a href="/logout">Logout</a>
+
+{% endblock %}
+
+{% block script %}
+
+<script>
+
+	$( document ).ready(function() {
+
+		var tasks = document.getElementsByClassName("dot")
+		
+		for(var i = 0; i < tasks.length; i++){
+			if (tasks[i].id === "True") {
+				tasks[i].style.backgroundColor = "#00ff00"
+			} else {
+				tasks[i].style.backgroundColor = "#ff0000"
+			}
+		}
+
+	});
+
+</script>
 
 {% endblock %}

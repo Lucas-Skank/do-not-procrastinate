@@ -1,39 +1,153 @@
-{% extends "layout.html" %}
+{% extends "layout.html" %} {% block body %}
 
-{% block body %}
+<div
+	style="
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		max-width: 1020px;
+		margin: auto;
+	"
+	class="rule-header"
+>
+	<div id="header" style="display: block; padding-bottom: 10px">
+		<a href="/home"
+			><img
+				alt="do-not-procrastinate-logo"
+				src="/static/logo-header.png"
+				style="width: 306px; padding-bottom: 50px"
+				class="rule-header"
+		/></a>
+	</div>
+	<button
+		type="button"
+		class="btn btn-primary action-btn"
+		data-bs-toggle="modal"
+		data-bs-target="#modalRule"
+	>
+		ADD NEW RULE
+	</button>
+</div>
 
-        <h1>Manage your rules</h1>
+<div id="record-table" style="max-width: 1020px; margin: auto">
+	<table class="table table-dark table-hover" style="--bs-table-bg: none">
+		<thead>
+			<tr>
+				<th style="width: 20px"></th>
+				<th scope="col">Rule Name</th>
+				<th scope="col">Point</th>
+				<th scope="col">P | N</th>
+				<th scope="col" style="width: 20px"></th>
+			</tr>
+		</thead>
+		<tbody>
+			{% for rule_row in user_rules %}
+			<tr>
+				<td scope="row"><span class="dot" id="{{ rule_row['pn'] }}"></span></td>
+				<td>{{ rule_row["rule"] }}</td>
+				<td>{{ rule_row["point"] }}</td>
+				<td>{{ rule_row["pn"] }}</td>
+				<td>
+					<form action="/delete" method="post">
+						<input name="rule_id" value="{{ rule_row['id'] }}" hidden />
+						<button
+							type="submit"
+							style="
+								background: none;
+								color: inherit;
+								border: none;
+								padding: 0;
+								font: inherit;
+								cursor: pointer;
+								outline: inherit;
+							"
+						>
+							<img src="/static/trash-icon.png" style="width: 20px; height: 20px" />
+						</button>
+					</form>
+				</td>
+			</tr>
+			{% endfor %}
+		</tbody>
+	</table>
+</div>
 
-        <h2>Your rules:</h2>
-        <table> 
-                <thead>
-                        <tr>
-                                <th>Rule Name</th>
-                                <th>Point</th>
-                                <th>P | N</th>
-                        </tr>
-                </thead>
-                <tbody>
-                        {% for rule_row in user_rules %}
-                                <tr>
-                                        <td>{{ rule_row["rule"] }}</td>
-                                        <td>{{ rule_row["point"] }}</td>
-                                        <td>{{ rule_row["pn"] }}</td>
-                                </tr>
-                        {% endfor %}
-                </tbody>
-        </table>
+<div style="display: flex; flex-direction: row; justify-content: start; padding: 20px 0">
+	<a href="/home"><p style="font-size: large">< Home</p></a>
+</div>
 
-        <h2>Add a new rule</h2>
+<div
+	class="modal fade"
+	id="modalRule"
+	tabindex="-1"
+	aria-labelledby="modalRule"
+	aria-hidden="true"
+	style="color: black"
+>
+	<div class="modal-dialog modal-dialog-centered">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="modalRule">Manage your rules</h5>
 
-    <form action="/rule" method="post">
-        <input autocomplete="off" autofocus name="rule_name" placeholder="New Rule" type="text">
-        <input autocomplete="off" autofocus name="point" placeholder="Point" type="text">
-        <input autocomplete="off" autofocus name="pn" placeholder="Positive or Negative" type="text">
-        <input type="submit">
-    </form>
+				<button
+					type="button"
+					class="btn-close"
+					data-bs-dismiss="modal"
+					aria-label="Close"
+				></button>
+			</div>
+			<div class="modal-body">
+				<form action="/rule" method="post" id="rule">
+					<div class="mb-3">
+						<label class="col-form-label">New Rule:</label>
+						<input
+							type="text"
+							class="form-control"
+							name="rule_name"
+							placeholder="New Rule"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label class="col-form-label">Point:</label>
+						<input
+							type="number"
+							class="form-control"
+							name="point"
+							placeholder="Point"
+							required
+						/>
+					</div>
+					<div class="mb-3">
+						<label class="col-form-label">Positive or Negative:</label>
+						<select class="form-control" name="pn" form="rule" required>
+							<option disabled selected value="">Positive or Negative</option>
+							<option value="Positive">Positive</option>
+							<option value="Negative">Negative</option>
+						</select>
+					</div>
+					<div class="mb-3" style="display: flex">
+						<input type="submit" class="btn" />
+					</div>
+				</form>
+			</div>
+		</div>
+	</div>
+</div>
+{% endblock %} {% block script %}
 
-    <a href="/home">Home</a>
+<script>
+	$(document).ready(function () {
+		var tasks = document.getElementsByClassName("dot");
 
+		for (var i = 0; i < tasks.length; i++) {
+			if (tasks[i].id === "True") {
+				tasks[i].style.backgroundColor = "#00ff00";
+			} else {
+				tasks[i].style.backgroundColor = "#ff0000";
+			}
+		}
+	});
+</script>
 
 {% endblock %}
