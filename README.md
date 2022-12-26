@@ -2,7 +2,7 @@
 
 ## Objective
 
-> Create a personal scoreboard which inlfuence people to implement positive habits with consistency and to become more disciplined.
+> Create a personal scoreboard which influence people to implement positive habits with consistency and to become more disciplined.
 
 ### Video Demo: TODO
 
@@ -16,29 +16,34 @@
 
 It is no overstatement to say that all people, even in different levels, have difficulties with the creation of positive habits and discipline. Although the ambition for big dreams and having the knowledge that the persistence is one necessary key for success, it is still common the feeling of frustration at the end of the day for spending more time than it should in the socials networks and less time than necessary with books, physical exercise and other important matters.
 
-In the studies about work execution [[Covey, S. (2015). 4 disciplines of execution. Simon & Schuster.]] it is show that keeping a compelling scoreboard is one of the pilars of execution, keeping people more engaged, motivated and focused on their goals.
+In the studies about work execution [[Covey, S. (2015). 4 disciplines of execution. Simon & Schuster.]] it is shown that keeping a compelling scoreboard is one of the pillars of execution, keeping people more engaged, motivated and focused on their goals.
 
-This project was born from this ideia. The first version was deployed on papers and pencils, in some months became a online spreadsheet and for the final project of CS50 course we developed an application with the same principals.
+This project was born from this idea. The first version was deployed on papers and pencils, in some months became a online spreadsheet and for the final project of CS50 course we developed an application with the same principals.
 
 ### What do we want to achieve?
 
-The main ideia of this application is to be the compelling scoreboard for your the daily tasks of the user, and with some small time give the user the vision if he is heading to a positive outcome and towards he's goal or if he is moving to a different path.
+The main idea of this application is to be the compelling scoreboard for the daily tasks of the user.
+Also, it gives a quick access of the user vision, an overview if he is heading to a positive outcome 
+towards his goal or if the user is just procrastinating.
 
-From this application there are several ideias of improvement, more features and better user experience, but for this version we focused on the main value, letting the user define a main goal, the rules that are derived from this goal and the feature to create the registry of user's actions to monitor the progress.
+The main focus of the application are: 
+- let the user define a main goal 
+- let the user define the rules that are derived from the main goal 
+- let the user to registry his actions, monitoring his progress
 
-### How the program work?
+### How does the program work?
 
-1. Create user to get started and login in the application
+1. Create a user to get started and login in the application
 
-    > The 'user' will be used in the login page, while the 'name' will be used only to personalize the user's home page
+    > The 'username' will be used in the login page, while the 'name' will be used only to personalize the user's home page
 
 2. Create a Goal description
 
-    > Another pilar of execution from the book [[Covey, S. (2015). 4 disciplines of execution. Simon & Schuster.]] is to focus on the wildly important. By this you should create a goal description that extremely valuable and concise.
+    > Another pilar of execution from the book [[Covey, S. (2015). 4 disciplines of execution. Simon & Schuster.]] is to focus on the wildly important. Therefore, you should create the goal's description which is extremely valuable and concise.
 
 3. Create the rules based on the actions that bring you closer to and further from your main goal
 
-    > The ideia here is to understand what are the actions that you want to implement in your routine, and what are the negative habits that you want to stop. Combine with that you should weight the points for each one of the rules and identify if is a negative or a positive action.
+    > The idea here is to understand what are the actions that you want to implement in your routine, and what are the negative habits that you want to stop. Also, you should weight the points for each one of the rules while and identify them as positive or negative action.
 
 4. With all set now is time to add your tasks and monitor your progress
 
@@ -75,7 +80,7 @@ In this folder it is located all the html templates that are rendered for the us
 
 -   login_failed.html
 
-    > Habdle erros in the login step
+    > Handle erros in the login step
 
 -   register.html
 
@@ -83,7 +88,7 @@ In this folder it is located all the html templates that are rendered for the us
 
 -   register_failed.html
 
-    > Habdle erros in the register step
+    > Handle erros in the register step
 
 -   home.html
 
@@ -120,3 +125,14 @@ The following examples are for Linux machines. However, the commands are similar
 4. Run the `app.py` application with `Flask`:
 
 `flask run`
+
+---
+
+# Improvements and next steps
+
+From this application there are several ideas of improvement, more features and better user experience.
+Some of them are:
+
+- Add the possibility to show other user tasks and points for comparison and competition
+- Add graphs displaying the points over time
+
