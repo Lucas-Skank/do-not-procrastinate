@@ -46,7 +46,7 @@
 				<td scope="row"><span class="dot" id="{{ rule_row['pn'] }}"></span></td>
 				<td>{{ rule_row["rule"] }}</td>
 				<td>{{ rule_row["point"] }}</td>
-				<td>{{ rule_row["pn"] }}</td>
+				<td class="pn" id="{{ rule_row['pn'] }}"></td>
 				<td>
 					<form action="/delete" method="post">
 						<input name="rule_id" value="{{ rule_row['id'] }}" hidden />
@@ -138,13 +138,25 @@
 
 <script>
 	$(document).ready(function () {
-		var tasks = document.getElementsByClassName("dot");
+		var ruleDot = document.getElementsByClassName("dot");
 
-		for (var i = 0; i < tasks.length; i++) {
-			if (tasks[i].id === "True") {
-				tasks[i].style.backgroundColor = "#00ff00";
+		for (var i = 0; i < ruleDot.length; i++) {
+			if (ruleDot[i].id === "True") {
+				ruleDot[i].style.backgroundColor = "#00ff00";
 			} else {
-				tasks[i].style.backgroundColor = "#ff0000";
+				ruleDot[i].style.backgroundColor = "#ff0000";
+			}
+		}
+	});
+
+	$(document).ready(function () {
+		var rulePn = document.getElementsByClassName("pn");
+
+		for (var i = 0; i < rulePn.length; i++) {
+			if (rulePn[i].id === "True") {
+				rulePn[i].textContent = "Positive";
+			} else {
+				rulePn[i].textContent = "Negative";
 			}
 		}
 	});
