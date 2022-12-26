@@ -49,24 +49,35 @@ The main focus of the application are:
 
 ## Stack used
 
--   Front: CSS + HTML + Javascript
--   Back: python + flask + SQL
+### Frontend 
+
+CSS + HTML + Javascript
+
+### Backend
+
+Python + Flask + SQLAlchemy
 
 ### Files
 
 #### app.py
 
--   [ ] @COXA
+- It is the main file of the application. Here, all the requests are handled
+and the proper html page will be rendered. Also, the database will be created once
+the app is started, using the `models.py` file.
 
 #### models.py
 
--   [ ] @COXA
+- All models for the database are defined here. The database is composed by
+the tables: `User`, `Tasks` and `Rules`. `Rules` is used to store the set of
+rules in which the user will daily do to accomplish his goal. `Tasks` is used
+to store the user "rules" when they do them. The `User` table stores all
+relevant information for the user.
 
 #### utils.py
 
--   [ ] @COXA
+- This script contains only helper functions for the app.
 
-#### templates
+#### /templates
 
 In this folder it is located all the html templates that are rendered for the user.
 
