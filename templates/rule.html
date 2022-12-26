@@ -1,6 +1,15 @@
 {% extends "layout.html" %} {% block body %}
 
-<div style="display: flex; flex-direction: row; justify-content: space-between" class="rule-header">
+<div
+	style="
+		display: flex;
+		flex-direction: row;
+		justify-content: space-between;
+		max-width: 1020px;
+		margin: auto;
+	"
+	class="rule-header"
+>
 	<div id="header" style="display: block; padding-bottom: 10px">
 		<a href="/home"
 			><img
@@ -20,10 +29,11 @@
 	</button>
 </div>
 
-<div id="record-table">
+<div id="record-table" style="max-width: 1020px; margin: auto">
 	<table class="table table-dark table-hover" style="--bs-table-bg: none">
 		<thead>
 			<tr>
+				<th style="width: 20px"></th>
 				<th scope="col">Rule Name</th>
 				<th scope="col">Point</th>
 				<th scope="col">P | N</th>
@@ -33,6 +43,7 @@
 		<tbody>
 			{% for rule_row in user_rules %}
 			<tr>
+				<td scope="row"><span class="dot" id="{{ rule_row['pn'] }}"></span></td>
 				<td>{{ rule_row["rule"] }}</td>
 				<td>{{ rule_row["point"] }}</td>
 				<td>{{ rule_row["pn"] }}</td>
@@ -123,4 +134,20 @@
 		</div>
 	</div>
 </div>
+{% endblock %} {% block script %}
+
+<script>
+	$(document).ready(function () {
+		var tasks = document.getElementsByClassName("dot");
+
+		for (var i = 0; i < tasks.length; i++) {
+			if (tasks[i].id === "True") {
+				tasks[i].style.backgroundColor = "#00ff00";
+			} else {
+				tasks[i].style.backgroundColor = "#ff0000";
+			}
+		}
+	});
+</script>
+
 {% endblock %}

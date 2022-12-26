@@ -132,11 +132,9 @@
 
 				<hr />
 
-				<div><u>Update goal:</u></div>
+				<div style="text-align: center;font-weight: 600;margin: 10px 0px;">Update goal</div>
 
 				<form action="/goal" method="post">
-					<label class="col-form-label" style="margin: 0">New goal:</label>
-
 					<textarea
 						autocomplete="off"
 						class="form-control"
@@ -217,10 +215,15 @@
 </div>
 
 
+<a href="/logout">Logout</a>
+
+{% endblock %}
+
+{% block script %}
+
 <script>
 
 	$( document ).ready(function() {
-    	console.log( "ready!" );
 
 		var tasks = document.getElementsByClassName("dot")
 		
@@ -235,8 +238,5 @@
 	});
 
 </script>
-
-
-<a href="/logout">Logout</a>
 
 {% endblock %}
