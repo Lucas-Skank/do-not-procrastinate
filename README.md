@@ -34,6 +34,9 @@ The main focus of the application are:
 
 ### How does the program work?
 
+`do-not-procrastinate` is a **web application** to help to improve peoples discipline.
+Once you run the application via `How to run`, you can use the following steps to start:
+
 1. Create a user to get started and login in the application
 
     > The 'username' will be used in the login page, while the 'name' will be used only to personalize the user's home page
@@ -109,7 +112,7 @@ In this folder it is located all the html templates that are rendered for the us
 -   rule.html
     > This page contains the table with the rules added by the user and the option to add and remove the rules.
 
-#### static
+#### /static
 
 In this folder is located the cascading style sheets file and the images that are used in the site;
 
@@ -137,6 +140,8 @@ The following examples are for Linux machines. However, the commands are similar
 4. Run the `app.py` application with `Flask`:
 
 `flask run`
+
+Now you should be able to visit `127.0.0.1:5000` and see the login page of the app.
 
 ---
 
