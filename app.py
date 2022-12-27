@@ -132,7 +132,12 @@ def home():
         user_id=current_user.id).all()
 
     # Get user tasks
-    userdata["tasks"] = Tasks.query.filter_by(user_id=current_user.id).all()
+    userdata["tasks"] = (
+        Tasks.query
+        .filter_by(user_id=current_user.id)
+        .order_by(Tasks.id.desc())
+        .all()
+    )
 
     # Get positive points
     positive_tasks = filter_positive(userdata["tasks"])
