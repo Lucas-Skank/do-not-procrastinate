@@ -4,9 +4,9 @@
 
 > Create a personal scoreboard which influence people to implement positive habits with consistency and to become more disciplined.
 
-### Video Demo: TODO
+### Video Demo:
 
-<URL HERE>
+https://www.youtube.com/watch?v=D_StdhS7XI0
 
 ---
 
